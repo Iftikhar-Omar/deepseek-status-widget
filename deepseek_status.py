@@ -18,7 +18,18 @@ import time
 import urllib.request
 from datetime import datetime, timedelta, timezone
 
-import tkinter as tk
+# tkinter is imported lazily: the CLI modes (--selftest, --line, --waybar) are used
+# on headless machines and CI runners where tkinter may not be installed.
+tk = None
+
+
+def load_tk():
+    global tk
+    if tk is None:
+        import tkinter as _tk
+
+        tk = _tk
+    return tk
 
 # --- schedule ---------------------------------------------------------------
 # Peak: 01:00-04:00 and 06:00-10:00 UTC, Monday-Friday. Everything else,
@@ -194,6 +205,7 @@ def line_mode(as_json=False):
 
 class Widget:
     def __init__(self):
+        load_tk()
         self.root = tk.Tk()
         self.root.overrideredirect(True)
         self.root.attributes("-topmost", True)

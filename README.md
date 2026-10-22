@@ -1,5 +1,9 @@
 # DeepSeek Status Widget
 
+[![test](https://github.com/Iftikhar-Omar/deepseek-status-widget/actions/workflows/test.yml/badge.svg)](https://github.com/Iftikhar-Omar/deepseek-status-widget/actions/workflows/test.yml)
+![license](https://img.shields.io/badge/license-MIT-blue)
+![platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)
+
 A tiny always-on-top desktop widget that shows **whether DeepSeek is charging peak or off-peak rates
 right now**, when that flips, and **how much balance is left**.
 
