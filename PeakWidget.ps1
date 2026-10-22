@@ -98,20 +98,23 @@ function New-Label {
     $l.Text = $Text
     $l.Location = New-Object System.Drawing.Point($X, $Y)
     $l.Size = New-Object System.Drawing.Size($W, $H)
-    $l.Font = New-Object System.Drawing.Font('Segoe UI', $Size, $(if ($Bold) { [System.Drawing.FontStyle]::Bold } else { [System.Drawing.FontStyle]::Regular }))
+    # Pixel units, not points: a point-sized font scales with display DPI (20pt
+    # becomes ~33px at 125%) and overflows the box, clipping the glyph tops.
+    $style = if ($Bold) { [System.Drawing.FontStyle]::Bold } else { [System.Drawing.FontStyle]::Regular }
+    $l.Font = New-Object System.Drawing.Font('Segoe UI', $Size, $style, [System.Drawing.GraphicsUnit]::Pixel)
     $l.ForeColor = $Color
     $l.BackColor = [System.Drawing.Color]::Transparent
     if ($Align -eq 'Right') { $l.TextAlign = 'MiddleRight' }
     return $l
 }
 
-$lblState = New-Label 'PEAK' 18 8 210 34 20 $colPeak $true
-$lblClock = New-Label '' 250 12 104 18 9 $colMuted $false 'Right'
-$lblCount = New-Label '' 18 42 336 20 10 $colText
-$lblBalCap = New-Label 'REMAINING BALANCE' 18 80 220 14 7.5 $colMuted
-$lblBalVal = New-Label '--' 18 94 126 38 20 $colText
-$lblBalAlt = New-Label '' 150 104 90 18 8 $colMuted
-$lblFoot = New-Label '' 18 136 336 14 7 $colMuted $false 'Right'
+$lblState = New-Label 'PEAK' 18 6 210 38 26 $colPeak $true
+$lblClock = New-Label '' 250 12 104 18 12 $colMuted $false 'Right'
+$lblCount = New-Label '' 18 44 336 20 13 $colText
+$lblBalCap = New-Label 'REMAINING BALANCE' 18 80 220 14 10 $colMuted
+$lblBalVal = New-Label '--' 18 94 126 38 26 $colText
+$lblBalAlt = New-Label '' 150 104 90 18 11 $colMuted
+$lblFoot = New-Label '' 18 136 336 14 9 $colMuted $false 'Right'
 
 foreach ($c in @($lblState, $lblClock, $lblCount, $lblBalCap, $lblBalVal, $lblBalAlt, $lblFoot)) {
     $form.Controls.Add($c)

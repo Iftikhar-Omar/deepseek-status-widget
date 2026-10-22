@@ -5,3 +5,7 @@ desktop.ini
 
 # local logs
 *.log
+
+# python
+__pycache__/
+*.pyc
