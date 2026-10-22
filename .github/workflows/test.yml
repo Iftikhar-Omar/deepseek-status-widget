@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  schedule:
+  windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,3 +21,19 @@ jobs:
       - name: Schedule boundaries
         shell: powershell
         run: .\PeakWidget.ps1 -Test
+
+  python:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install tkinter (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y python3-tk
+
+      - name: Schedule boundaries
+        run: python3 deepseek_status.py --selftest
