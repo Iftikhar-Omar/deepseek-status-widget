@@ -107,7 +107,7 @@ function New-Label {
 
 $lblState = New-Label 'PEAK' 18 8 210 34 20 $colPeak $true
 $lblClock = New-Label '' 250 12 104 18 9 $colMuted $false 'Right'
-$lblCount = New-Label '' 18 44 336 18 10 $colText
+$lblCount = New-Label '' 18 42 336 20 10 $colText
 $lblBalCap = New-Label 'REMAINING BALANCE' 18 80 220 14 7.5 $colMuted
 $lblBalVal = New-Label '--' 18 94 126 38 20 $colText
 $lblBalAlt = New-Label '' 150 104 90 18 8 $colMuted
@@ -247,11 +247,11 @@ function Update-Widget {
     if ($peak) {
         $lblState.Text = 'PEAK'
         $lblState.ForeColor = $colPeak
-        $lblCount.Text = 'off-peak in ' + (Format-Span ($next - $nowUtc))
+        $lblCount.Text = 'Off-peak in ' + (Format-Span ($next - $nowUtc))
     } else {
         $lblState.Text = 'OFF-PEAK'
         $lblState.ForeColor = $colOff
-        $lblCount.Text = 'peak in ' + (Format-Span ($next - $nowUtc))
+        $lblCount.Text = 'Peak in ' + (Format-Span ($next - $nowUtc))
     }
 
     $local = [System.TimeZoneInfo]::ConvertTimeFromUtc($nowUtc, [System.TimeZoneInfo]::Local)

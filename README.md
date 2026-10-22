@@ -63,20 +63,28 @@ export DEEPSEEK_API_KEY=sk-...     # add to ~/.zshrc or ~/.bashrc
 - **Python build:** Python 3.8+ with tkinter. Included in python.org builds; on Debian/Ubuntu install
   `python3-tk`.
 
-## Install
+## One-click launch
+
+No terminal needed on any platform:
+
+| platform | double-click this | notes |
+|---|---|---|
+| **Windows** | `Start Widget.vbs` | **not** `PeakWidget.ps1` — double-clicking a `.ps1` opens it in your editor, it does not run it. The `.vbs` starts PowerShell with no console flash. |
+| **macOS** | `DeepSeek Status.command` | first launch: right-click → **Open** once to get past Gatekeeper |
+| **Linux** | `install-linux.sh` (once) → then the **DeepSeek Status** application-menu entry | or run `./deepseek-status.sh`; some file managers need *Preferences → Run executable text files* enabled |
 
 ```sh
 git clone https://github.com/Iftikhar-Omar/deepseek-status-widget.git
 cd deepseek-status-widget
 ```
 
-**Windows (native):** double-click `Start Widget.vbs` — no console window, no installer.
+Start it at sign-in (Windows):
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\install-startup.ps1   # optional: start at sign-in
+powershell -ExecutionPolicy Bypass -File .\install-startup.ps1
 ```
 
-**Any platform (Python):**
+From a terminal, any platform:
 
 ```sh
 python3 deepseek_status.py

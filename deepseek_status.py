@@ -207,6 +207,13 @@ class Widget:
     def __init__(self):
         load_tk()
         self.root = tk.Tk()
+        # Tk divides wm geometry by its DPI scaling factor, so a 344x152 request
+        # becomes 275x122 at 125%. Everything here is sized in pixels already, so
+        # pin the scaling to the 96-DPI baseline and let geometry mean pixels.
+        try:
+            self.root.tk.call("tk", "scaling", 96.0 / 72.0)
+        except Exception:  # noqa: BLE001
+            pass
         self.root.overrideredirect(True)
         self.root.attributes("-topmost", True)
         self.root.configure(bg=BG)
@@ -315,10 +322,10 @@ class Widget:
         remaining = cache["next"] - now
         if cache["peak"]:
             self.state_lbl.configure(text="PEAK", fg=PEAK)
-            self.count_lbl.configure(text="off-peak in " + fmt_span(remaining))
+            self.count_lbl.configure(text="Off-peak in " + fmt_span(remaining))
         else:
             self.state_lbl.configure(text="OFF-PEAK", fg=OFF)
-            self.count_lbl.configure(text="peak in " + fmt_span(remaining))
+            self.count_lbl.configure(text="Peak in " + fmt_span(remaining))
         self.clock_lbl.configure(text=now.astimezone().strftime("%H:%M %a"))
 
         total = (cache["next"] - cache["prev"]).total_seconds()
